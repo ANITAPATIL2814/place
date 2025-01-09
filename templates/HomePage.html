@@ -1,0 +1,40 @@
+
+{% extends "base1.html" %}
+{% load static %}
+{% block 'main' %}
+  <!-- page content -->
+          
+  <div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h1>Admin Details</h1>
+        <br>
+        <font size="4em">
+        NAME : {{ename}}
+        <br><br>
+        DOB : {{dob}}
+        <br>
+        <br>
+        PHONE : {{phone}}
+        <br><br>
+        ADDRESS : {{address}}
+        <br><br>
+        ID : {{emp_id}}
+        <br>
+        <br>
+        {% for value in gender %}
+        GENDER : {{value.1}}
+        {% endfor %}
+        <br>
+        <br>
+        {% for i in bgroup %}
+        BLOOD GROUP : {{i.1}}
+        {% endfor %}
+        </font>
+      </div> 
+      <img src="{{photo}}" width=180 height=200 hspace="30" align="right" style=" border:2px solid black; margin-top: 40px; margin-right: 50px; ">
+    </div>     
+  </div>
+<!-- /page content -->
+
+{% endblock 'main'%}

@@ -1,0 +1,142 @@
+
+{% extends "base1.html" %}
+{% load static %}
+{% block 'main' %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>ADD PLACEMENT</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <!-- <input type="text" class="form-control" placeholder="Search for..."> -->
+            <!-- <span class="input-group-btn"> -->
+              <!-- <button class="btn btn-default" type="button">Go!</button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Enter Details of the Placement</h2>
+            <ul class="nav navbar-right panel_toolbox">
+             </li>
+              <li class="dropdown">
+                
+              </li>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <br />
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/add-placement/{{student_id}}/" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <!-- <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div> -->
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >Student Name <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="sname" value="{{sname}}" required="required" class="form-control col-md-7 col-xs-12" readonly>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Roll Number<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input  class="form-control col-md-7 col-xs-12" type="text" name="rno" value="{{roll}}" readonly>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Batch<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control col-md-7 col-xs-12" required="required" type="text" name="batch" value="{{batch}}" readonly>
+                </div>
+              </div>
+              
+<!-- 
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Drive Year<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control col-md-7 col-xs-12" required="required" type="text" name="dyears" value="{{dyears}}" readonly>
+                </div>
+              </div> -->
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Drive Year<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select class="form-control" name="dyears" data-show-subtext="true" data-live-search>
+                    <option>Choose option</option>
+                    {% for value in dyears %}
+                    <option value="{{ val }}"> {{ value }} </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Drive<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select class="form-control" name="drive_picker" data-show-subtext="true" data-live-search>
+                    <option>Choose option</option>
+                    {% for key,value in all_drives.items %}
+                    <option value="{{ key }}"> {{ value }} </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+          
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Joining
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12"><div class='input-group date' id='myDatepicker'>
+                  <input type='text' class="form-control" name="doj" />
+                    <span class="input-group-addon">
+                       <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                </div>
+              </div>
+
+              <div class="ln_solid"></div>
+              <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="button" onclick="location.href='/home'">Cancel</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
+                  <br><br>{{message}}
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    
+<!-- /page content -->
+
+{% endblock 'main'%}

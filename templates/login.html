@@ -1,0 +1,30 @@
+<!doctype html>
+<html> 
+	<head>
+		<title>Placement Portal | Login</title>
+		<link rel="stylesheet" href="/static/css/login.css"/>
+	</head>
+
+	<body> 
+		<div class="section">
+			<h1><span>LOGIN</span></h1>
+			<form action="/placement/login" method="post">
+			{% csrf_token %}
+				<ul>
+					<li>
+						<input placeholder="Username" type="text" name="username"/>
+					</li>
+				
+					<li>
+						<input placeholder="Password" type="password" name="password"/>
+					</li>
+					
+					<li><input type="submit" class="submit"/></li>
+					<h3>{{ message }}</h3>
+				</ul>
+			</form>
+		</div>
+	
+	
+	</body>
+</html>
