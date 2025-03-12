@@ -1,0 +1,44 @@
+<!-- <html lang="en">
+    <head>
+        <title>
+            View Academic Details
+        </title>
+        <script src="/static/js/academic_datatables.js"></script>
+    </head>
+    <body>
+        <div class="row" id="table">
+            <div class="col-lg-12 table-body">
+                <table id="academic-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>10th Percentage</th>
+                        <th>12th Percentage</th>
+                        <th>Graduation Percentage</th>
+                        <th>Extra Courses</th>
+                        <th>Edit Academic Details</th>
+                        <th>Delete Academic Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for academic in academics %}
+                        <tr>
+                            <td>{{ academic.student.id }}</td>
+                            <td>{{ academic.tenth_percentage }}</td>
+                            <td>{{ academic.twelfth_percentage }}</td>
+                            <td>{{ academic.graduation_percentage }}</td>
+                            <td>{{ academic.extra_courses }}</td>
+                            <td>
+                                <a href="{% url 'edit_academic' academic.id %}" class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_academic' academic.id %}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html> -->

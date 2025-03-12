@@ -27,33 +27,44 @@
           </div>
           <div class="x_content">
             <br />
-            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/edit-student/{{student_id}}" method="POST" enctype="multipart/form-data">
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/edit-student/{{student_id}}/" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" >Student Name <span class="required">*</span>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >Student Name 
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="sname" value="{{sname}}" required="required" class="form-control col-md-7 col-xs-12" >
+                  <input type="text" name="sname" value="{{sname}}" class="form-control col-md-7 col-xs-12" >
                 </div>
               </div>
       
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Roll Number<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Roll Number</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input  class="form-control col-md-7 col-xs-12" type="text" name="rno" value="{{roll}}" >
                 </div>
               </div>
-
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">DOB<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select class="form-control" name="gender_picker" data-show-subtext="true" data-live-search>
+                    <option value="">Please select</option> <!-- Default option -->
+                    {% for i in gender_type %}
+                      <option value="{{ i.0 }}" {% if i.0 == student.gender %}selected{% endif %}> {{ i.1 }} </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">DOB</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input class="form-control col-md-7 col-xs-12" type="date" name="dob" value="{{dob|date:"Y-m-d"}}" >
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Blood Group<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Blood Group</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" name="blood_group_picker" data-show-subtext="true" data-live-search>
                     <option value="">Please select</option>
@@ -67,25 +78,25 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Batch<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Batch</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input class="form-control col-md-7 col-xs-12" type="text" name="batch" value="{{batch}}" >
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">phone<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">phone</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input class="form-control col-md-7 col-xs-12" type="text" name="phone" value="{{phone}}" >
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Current address<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Current address</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input class="form-control col-md-7 col-xs-12" type="text" name="curradd" value="{{curradd}}" >
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Photo<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Photo</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input class="form-control col-md-7 col-xs-12" type="file" accept="image/*" name="profile-img"  >
                   {% if photo %}
@@ -94,22 +105,24 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <input class="form-control col-md-7 col-xs-12" placeholder="email" type="text" name="email" value="{{email}}"> 
                 </div>
               </div>
-                <!-- <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian Name<span class="required">*</span></label>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian Name</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input class="form-control col-md-7 col-xs-12" placeholder="Guardian Name" type="text" name="gname" value="{{gname}}">  
                     </div>
-                </div> -->
-              <!-- <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose Course<span class="required">*</span></label>
+                </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian Type</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="guardian_type_picker" data-show-subtext="true" data-live-search >
-                            {% for key in guardian_type %}
+                      <option value="">Please select</option>
+
+                      {% for key in guardian_type %}
                                 <option value="{{key.0}}">{{key.1}}</option>
                             {% endfor %}
                             {% for key in guardian_types %}
@@ -117,10 +130,17 @@
                             {% endfor %}
                     </select>
                 </div>
-              </div> -->
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian Phone </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input class="form-control col-md-7 col-xs-12" type="text" name="gphone" value="{{ guardian_phone }}">
+                </div>
+              </div>
+              
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose Course<span class="required">*</span></label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose Course</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <select class="form-control" name="course_picker" data-show-subtext="true" data-live-search >
                         {% for key,value in course.items %}

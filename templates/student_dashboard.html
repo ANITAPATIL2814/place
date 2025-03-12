@@ -1,16 +1,11 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Placement Portal</title>
-
+    <title>Student Dashboard</title>
     <!-- Bootstrap -->
     <link href="/static/scss/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -25,17 +20,8 @@
     <link href="/static/scss/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="/static/scss/daterangepicker.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="/static/scss/custom.min.css" rel="stylesheet">
-    <style>
-      /* Custom styles */
-      #container {
-          min-width: 310px;
-          height: 200px;
-          margin: 0 auto;
-      }
-  </style>
   </head>
 
   <body class="nav-md">
@@ -44,111 +30,110 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/home" class="site_title"><i class="fa fa-home"></i> <span>Placement Portal</span></a>
+              <a href="/student_dashboard" class="site_title"><i class="fa fa-home"></i> <span>Student Dashboard</span></a>
             </div>
             <div class="clearfix"></div>
-            <!-- Menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <!-- <img src="images/bvp_logo.png" alt="..." class="img-circle profile_img"> -->
               </div>
               <div class="profile_info">
                 <span><font size="6">Welcome</font></span>
               </div>
             </div>
-
             <br />
 
-            <!-- Sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <!-- Menu items here -->
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/stud_register">Register Students</a></li>
+
+                      <li><a href="/view-profile">View Profile</a></li>
+                      <li><a href="/update-profile">Update Profile</a></li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Top navigation -->
+        <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-
               <ul class="nav navbar-nav navbar-right">
-                <font size="6">PLACEMENT PORTAL</font>
+                <font size="6">STUDENT DASHBOARD</font>
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    Settings <span class="fa fa-cogs"></span>
+                    Settings
+                    <span class=" fa fa-cogs"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="/cpassword"><i class="fa fa-briefcase pull-right"></i> Change Password</a></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/change-password"><i class="fa fa-briefcase pull-right"></i>Change Password</a></li>
+                    <li><a href="/studlogin"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
             </nav>
           </div>
         </div>
-
-        <!-- Page content -->
         <div class="right_col" role="main">
-          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;"></div>
-        </div>
+            <div class="page-title">
+              <div class="title_left">
+                <h1>Student Details</h1>
+                <br>
+                <font size="4em">
+                    Roll Number: : {{student.roll_no }}
+                <br><br>
+                Name : {{student.name}}
+                <br>
+                <br>
+                Email : {{student.email}}
+                <br><br>
+                Guardian Name : {{student.guardian_name}}
+                <br><br>
+                Guardian type : {{student.get_guardian_type_display}}
+                <br>
+                <br>
+                Guardian Phone : {{student.guardian_phone}}
+                <br>
+                <br>
+                Course : {{student.course.name}}
+                <br>
+                <br>
+                Batch : {{ student.batch}}
+                </font>
 
-        <!-- Footer content -->
+              </div> 
+              <!-- <img src="{{photo}}" width=180 height=200 hspace="30" align="right" style=" border:2px solid black; margin-top: 40px; margin-right: 50px; "> -->
+            </div>     
+          </div>
+      
+        <!-- footer content -->
         <footer>
           <div class="pull-right">
             Project by Anita Patil
           </div>
           <div class="clearfix"></div>
         </footer>
+        <!-- /footer content -->
       </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- jQuery -->
     <script src="/static/sjs/jquery.min.js"></script>
+    <!-- Bootstrap -->
     <script src="/static/sjs/bootstrap.min.js"></script>
-    <script src="{% static 'hcharts/js/highcharts.js' %}"></script>
-
-    <script>
-      Highcharts.chart('container', {
-          chart: {
-              type: 'column'
-          },
-          title: {
-              text: 'Placement Packages Offered by Companies'
-          },
-          xAxis: {
-             
-              categories: "{{ labels|join:', ' }}".split(', '),
-
-              
-              title: {
-                  text: 'Package'
-              }
-          },
-          yAxis: {
-              min: 0,
-              title: {
-                  text: '{{ ylabel }}'
-              }
-          },
-          tooltip: {
-              shared: true,
-              useHTML: true
-          },
-          series: [
-                {% for dataset in datasets %}
-                    {
-                        name: "{{ dataset.label }}",
-                        data: [{{ dataset.dataset|join:', ' }}]
-                    },
-                {% endfor %}
-          ]
-
-      });
-  </script>
+    <!-- FastClick -->
+    <script src="/static/sjs/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/static/sjs/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/static/custom.min.js"></script>
   </body>
 </html>

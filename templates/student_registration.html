@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Register</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>  <!-- External CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            align-self: flex-start;
+            width: 90%;
+        }
+
+        input, select, textarea {
+            width: 90%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Reduce space for address fields */
+        textarea {
+            height: 25px; /* Set a smaller height */
+            resize: none; /* Prevent resizing */
+        }
+
+        .password-group {
+            display: flex;
+            gap: 10px;
+            width: 90%;
+        }
+
+        .password-group div {
+            flex: 1;
+        }
+
+        button {
+            width: 90%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        p {
+            margin-top: 15px;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Register</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="id_name">Full Name</label>
+        {{ form.name }}
+
+        <label for="id_email">Email</label>
+        {{ form.email }}
+
+        <label for="id_roll_no">Roll Number</label>
+        {{ form.roll_no }}
+
+        <label for="id_gender">Gender</label>
+        {{ form.gender }}
+
+        <label for="id_dob">Date of Birth</label>
+        {{ form.dob }}
+
+        <label for="id_phone">Phone Number</label>
+        {{ form.phone }}
+
+        <label for="id_curr_address">Current Address</label>
+        {{ form.curr_address }}
+
+        <label for="id_perm_address">Permanent Address</label>
+        {{ form.perm_address }}
+
+        <label for="id_blood_group">Blood Group</label>
+        {{ form.blood_group }}
+
+        <label for="id_guardian_name">Guardian Name</label>
+        {{ form.guardian_name }}
+
+        <label for="id_guardian_type">Guardian Type</label>
+        {{ form.guardian_type }}
+
+        <label for="id_guardian_phone">Guardian Phone</label>
+        {{ form.guardian_phone }}
+
+        <label for="id_course">Course</label>
+        {{ form.course }}
+
+        <label for="id_batch">Batch</label>
+        {{ form.batch }}
+
+        <div class="password-group">
+            <div>
+                <label for="id_password">Password</label>
+                {{ form.password }}
+            </div>
+            <div>
+                <label for="id_confirm_password">Confirm Password</label>
+                {{ form.confirm_password }}
+            </div>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Have an account? <a href="{% url 'studlogin' %}">Login here</a></p>
+</div>
+
+</body>
+</html>

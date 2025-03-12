@@ -104,7 +104,7 @@ class PasswordResetAdmin(DeleteNotAllowedAdmin):
         return False
 
         
-admin.site.register(Admin, EmployeeAdmin)
+admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Company, CompanyAdmin)

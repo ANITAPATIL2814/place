@@ -55,6 +55,10 @@ C:\placement-master>venv\Scripts\activate
 # first start env then start project 
 #(venv) C:\placement-master>pip install cryptography
 # (venv) C:\placement-master>python manage.py createsuperuser
-# Username: anita
+# Username: patil
 # Email address: anita@gmail.com
 # Password: //anita
+
+# student login 
+# username : anitapatil28145@gmail.com
+# pass : anu

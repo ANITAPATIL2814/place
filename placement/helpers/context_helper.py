@@ -128,9 +128,9 @@ def get_emp_info(employee):
     info = {
         'ename': employee.name,
         'dob': employee.dob,
-        'gender': [i for i in genders if employee.gender in i],
+        # 'gender': [i for i in genders if employee.gender in i],
         'phone': employee.phone,
-        'address': employee.curr_address,
+        # 'address': employee.curr_address,
         'emp_id': employee.e_id,
         'bgroup': [i for i in blood_groups if employee.blood_group in i],
         'photo': os.path.join(settings.MEDIA_URL, employee.photo.name) if employee.photo else None,

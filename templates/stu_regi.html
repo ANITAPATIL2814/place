@@ -1,0 +1,129 @@
+{% block 'main' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Registration</title>
+    <!-- Bootstrap -->
+    <link href="/static/scss/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/scss/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/scss/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/static/scss/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/static/scss/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/static/scss/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/static/scss/daterangepicker.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/static/scss/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/student_dashboard" class="site_title"><i class="fa fa-home"></i> <span>Student Dashboard</span></a>
+            </div>
+            <div class="clearfix"></div>
+
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-user"></i> Student <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/stud_register">Register Students</a></li>
+                      <li><a href="/view-profile">View Profile</a></li>
+                      <li><a href="/update-profile">Update Profile</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <font size="6">STUDENT REGISTRATION</font>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+              <div class="title_left">
+                <h1>Register Student</h1>
+                <br>
+                <form method="post" action="/register" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <label for="roll_no">Roll Number:</label>
+                  <input type="text" id="roll_no" name="roll_no" required><br><br>
+
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" name="name" required><br><br>
+
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" required><br><br>
+
+                  <label for="guardian_name">Guardian Name:</label>
+                  <input type="text" id="guardian_name" name="guardian_name" required><br><br>
+
+                  <label for="guardian_type">Guardian Type:</label>
+                  <select id="guardian_type" name="guardian_type">
+                    <option value="Father">Father</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Other">Other</option>
+                  </select><br><br>
+
+                  <label for="guardian_phone">Guardian Phone:</label>
+                  <input type="text" id="guardian_phone" name="guardian_phone" required><br><br>
+
+                  <label for="course">Course:</label>
+                  <input type="text" id="course" name="course" required><br><br>
+
+                  <label for="batch">Batch:</label>
+                  <input type="text" id="batch" name="batch" required><br><br>
+
+                  <label for="photo">Upload Photo:</label>
+                  <input type="file" id="photo" name="photo"><br><br>
+
+                  <input type="submit" value="Register">
+                </form>
+              </div>
+            </div>
+          </div>
+        
+        <footer>
+          <div class="pull-right">
+            Project by Anita Patil
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+      </div>
+    </div>
+
+    <script src="/static/sjs/jquery.min.js"></script>
+    <script src="/static/sjs/bootstrap.min.js"></script>
+    <script src="/static/sjs/fastclick.js"></script>
+    <script src="/static/sjs/nprogress.js"></script>
+    <script src="/static/custom.min.js"></script>
+  </body>
+</html>
+
+        {% endblock 'main'%}
+        

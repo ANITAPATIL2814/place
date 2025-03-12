@@ -3,12 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class TimeStampModel(models.Model):
-
-    """ 
-    Abstract class for all models to store created, updated and
-    deleted informarion (Time Manage).
-    """
+class TimeStampModel(models.Model): 
 
     created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
@@ -19,10 +14,6 @@ class TimeStampModel(models.Model):
 
 
 class Person(TimeStampModel):
-
-    """
-    Abstract class used for teachers and students basic information.
-    """
 
     BLOOD_TYPE = (
         ('A+', 'A-Positive'),
@@ -43,7 +34,7 @@ class Person(TimeStampModel):
     name = models.CharField(max_length=50, db_index=True)
     gender = models.CharField(max_length=2, null=False, choices=GENDER_TYPE, blank=True)
     dob = models.DateField(null=True, blank=True)
-    phone = models.CharField(max_length=15)
+    phone = models.BigIntegerField(null=True, blank=True)
     curr_address = models.TextField()
     perm_address = models.TextField(null=True)
     address_flag = models.BooleanField(default=False)
@@ -57,10 +48,6 @@ class Person(TimeStampModel):
 
 class Course(TimeStampModel):
 
-    """
-    Course details.
-    """
-
     name = models.CharField(max_length=100, null=False, db_index=True, unique=True)
     abbr = models.CharField(max_length=20, db_index=True, unique=True)
     duration = models.IntegerField()
@@ -69,66 +56,70 @@ class Course(TimeStampModel):
         return str(self.name)
 
     def __unicode__(self):
-        return unicode(self.name)
+        return str(self.name)
 
+from django.contrib.auth.models import User
+from django.db import models
 
 class Student(Person):
-
-    """
-    Student information model.
-    """
-
     GUARDIAN_TYPE = (
         ('F', 'Father'),
         ('M', 'Mother'),
-        ('G', 'Guradian')
+        ('G', 'Guardian')
     )
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)  # Link to the User model
 
-    roll_no = models.SlugField()
-    guardian_name = models.CharField(max_length=255, null=True, blank=True)
-    guardian_type = models.CharField(max_length=1, choices=GUARDIAN_TYPE,null=True, blank=True)
-    guardian_phone = models.CharField(max_length=15,null=True, blank=True)
-    course = models.ForeignKey(Course, db_index=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    roll_no = models.SlugField(unique=True)
+    guardian_name = models.CharField(max_length=50)
+    guardian_type = models.CharField(max_length=1, choices=GUARDIAN_TYPE)
+    guardian_phone = models.CharField(max_length=15, null=True, blank=True)
+    course = models.ForeignKey('Course', db_index=True, on_delete=models.CASCADE)
     batch = models.IntegerField()
     email = models.CharField(max_length=100, null=False, unique=True)
 
     def __str__(self):
-        return str(str(self.roll_no) + '-' + self.name)
+        return f"{self.roll_no} - {self.name}"
 
-    def __unicode__(self):
-        return unicode(str(self.roll_no) + '-' + self.name)
-
-
-class Admin(Person):
-
-    """
-    Employee details and their rights to portal.
-    """
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    e_id = models.CharField(max_length=20, db_index=True, unique=True)
-    student_permit = models.BooleanField(default=False)
-    company_permit = models.BooleanField(default=False)
-    placement_permit = models.BooleanField(default=False)
+class StudentRegister(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_register')
+    email = models.EmailField(max_length=100, unique=True)
 
     def __str__(self):
-        return str(self.e_id + '-' + self.name)
+        return f"{self.user.username} - {self.email}"  
+         
+class StudentAcademic(models.Model):
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, related_name='academic_info')
+    tenth_percentage = models.FloatField()
+    twelfth_percentage = models.FloatField()
+    graduation_percentage = models.FloatField()
+    extra_courses = models.TextField()
 
-    def __unicode__(self):
-        return unicode(self.e_id + '-' + self.name)
+    def __str__(self):
+        return f"{self.student.name}'s Academic Info"
+from django.db import models
+
+class Employee(models.Model):
+    e_id = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    dob = models.DateField()
+    phone = models.BigIntegerField(null=True, blank=True)
+    blood_group = models.CharField(max_length=5)
+    student_permit = models.BooleanField(default=False)
+    placement_permit = models.BooleanField(default=False)
+    company_permit = models.BooleanField(default=False)
+    soft_delete = models.BooleanField(default=False)
+    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Company(TimeStampModel):
 
-    """
-    Company details.
-    """
-
     name = models.CharField(max_length=200, db_index=True)
     address = models.TextField()
-    phone = models.CharField(max_length=15)
-
+    phone = models.BigIntegerField(null=True, blank=True)
     contact_person = models.CharField(max_length=100, db_index=True)
     email = models.CharField(max_length=100)
 
@@ -136,14 +127,10 @@ class Company(TimeStampModel):
         return str(self.name + '-' + str(self.contact_person))
 
     def __unicode__(self):
-        return unicode(self.name + '-' + str(self.contact_person))
+        return str(self.name + '-' + str(self.contact_person))
 
-
+from placement.models import Company  
 class CampusDrive(TimeStampModel):
-
-    """
-    Campus drive details of every company year by year.
-    """
 
     company = models.ForeignKey(Company, db_index=True, on_delete=models.CASCADE)
     drive_year = models.IntegerField()
@@ -160,10 +147,6 @@ class CampusDrive(TimeStampModel):
 
 class Placements(TimeStampModel):
 
-    """
-    Placement details of student placed in companies.
-    """
-
     student = models.ForeignKey(Student, db_index=True, on_delete=models.CASCADE)
     campus_drive = models.ForeignKey(CampusDrive, on_delete=models.CASCADE)
     dateofjoining = models.DateField(null=True, blank=True)
@@ -172,19 +155,17 @@ class Placements(TimeStampModel):
         return str(str(self.student) + '-' + str(self.campus_drive))
 
     def __unicode__(self):
-        return unicode(str(self.student) + '-' + str(self.campus_drive))
+        return str(str(self.student) + '-' + str(self.campus_drive))
 
     class Meta:
-        unique_together = ["student", "campus_drive"]
+        constraints = [
+            models.UniqueConstraint(fields=["student", "campus_drive"], name="unique_student_campus_drive")
+        ]
 
 
 class History(TimeStampModel):
 
-    """
-    Record of changes that is made by the user.
-    """
-
-    user = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE)
     activity = models.TextField(null=True, blank=True)
     activity_type = models.CharField(max_length=50)
 
@@ -192,16 +173,12 @@ class History(TimeStampModel):
         return str(str(self.user) + '-' + self.activity_type)
 
     def __unicode__(self):
-        return unicode(str(self.user) + '-' + self.activity_type)
+        return str(str(self.user) + '-' + self.activity_type)
 
 
 class PasswordReset(TimeStampModel):
 
-    """
-    Password reset model.
-    """
-
-    user = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE)
     password_request_created_at = models.DateTimeField(auto_now_add=True)
     token = models.TextField()
     token_consumed = models.BooleanField(default=False)

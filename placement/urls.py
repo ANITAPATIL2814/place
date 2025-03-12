@@ -1,26 +1,22 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
-from placement import views
+from placement import  views
 from placement import student_datatables_views
 from placement import Company_Datatables_Views
 from placement import Placement_Datatables_Views
 from placement import drive_datatables_views
-from django.contrib.auth import views as auth_views
-from . import views  # Assuming your views are in the same directory
 
 urlpatterns = [
-    # student start
-    # urls.py
-    # path('Stud_register/', views.register, name='Stud_register'),
-    # path('Stud_login/', auth_views.LoginView.as_view(template_name='student/stud_login.html'), name='Stud_login'),
-    # path('Stud_logout/', auth_views.LogoutView.as_view(), name='Stud_logout'),
-    # path('student/dashboard/', views.student_dashboard, name='student_dashboard'),
+ 
+    path('register/', views.register, name='register'),
+    path('studlogin/', views.studlogin_view, name='studlogin'),
+    path('student_dashboard/', views.student_dashboard, name='student_dashboard'),
+    path('view-profile/', views.view_profile, name='view-profile'),
+    path('stud_register/', views.Student_register, name='stud_register'),
 
-    # student_end
+
     path('', views.index, name='index'),
     path('login/', views.login_view, name='login_view'),
-    # path('register/', views.register, name='register'),
-
     path('home/', views.home, name='home'),
     path('logout/', views.logout_view, name='logout'),
     path('add-student/', views.add_student, name='add_student'),
@@ -48,7 +44,7 @@ urlpatterns = [
     path('edit-drive/<int:campusdrive_id>/', views.edit_campus_drive, name='edit_drive'),
     path('view-drives/', views.view_campus_drive, name='view_drives'),
     path('view-drive-dt/', login_required(drive_datatables_views.DriveListDatatable.as_view()), name='view_drive_dt'),
-    path('delete-drive/<int:campusdrive_id>/', views.delete_campus_drive, name='delete_drive'),
+    path('delete-drigve/<int:campusdrive_id>/', views.delete_campus_drive, name='delete_drive'),
     path('year-ajax/', views.year_ajax, name='year_ajax'),
     path('my-page/', views.mypage, name='my_page'),
 ]
